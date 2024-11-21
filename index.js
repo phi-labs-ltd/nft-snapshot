@@ -58,6 +58,7 @@ async function main() {
   // Get snapshot
   let snapshot = {};
   let holders = 0;
+  let holders_only = [];
   for (let i = 0; i < TOKENS_MINTED; i++) {
     let tokenId = i+1;
     console.log('token_id', tokenId);
@@ -67,15 +68,25 @@ async function main() {
     else {
       holders += 1;
       snapshot[owner] = { tokens: [String(tokenId)]};
+      holders_only.push(owner);
     }
     if (i == TOKENS_MINTED-1) {
       console.log('holders', holders);
       snapshot.holders = holders;
       let timestamp = new Date().getTime();
-      let filename = SNAPSHOT_FOLDER + timestamp + JSON_EXT;
+      let snapshot_filename = SNAPSHOT_FOLDER + "snapshot-" + timestamp + JSON_EXT;
+      let holders_filename = SNAPSHOT_FOLDER + "holders-only-" + timestamp;
       writeFile(
-        filename, 
+        snapshot_filename, 
         JSON.stringify(snapshot), 
+        'utf8', 
+        ((err) => { 
+          if (err) console.log(err);
+        })
+      );
+      writeFile(
+        holders_filename, 
+        JSON.stringify(holders_only), 
         'utf8', 
         ((err) => { 
           if (err) console.log(err);
