@@ -75,7 +75,7 @@ async function main() {
       snapshot[owner] = { tokens: [String(tokenId)]};
       holders_only.push(owner);
     }
-    if (i == TOKENS_MINTED-1) {
+    if (i == TokensMinted-1) {
       console.log('holders', holders);
       snapshot.holders = holders;
       snapshot.burned_tokens = burned_tokens;
