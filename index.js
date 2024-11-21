@@ -5,9 +5,10 @@ import 'dotenv/config'
 const SNAPSHOT_FOLDER = process.env.OUTPATH + process.env.COLLECTION_NAME + '/';
 const JSON_EXT = '.json'
 const TOKEN_CONTRACT = process.env.TOKEN_CONTRACT;
+const RPC_NETWORK = process.env.RPC_NETWORK;
 
 async function getClient() {
-  const cwClient = await SigningArchwayClient.connectWithSigner('https://rpc.mainnet.archway.io', null);
+  const cwClient = await SigningArchwayClient.connectWithSigner(RPC_NETWORK, null);
   return cwClient;
 }
 
