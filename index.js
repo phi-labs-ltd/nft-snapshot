@@ -67,7 +67,7 @@ async function main() {
     let tokenInfo = await loadToken(client, tokenId);
     let owner = (tokenInfo.hasOwnProperty('access')) ? tokenInfo.access.owner : null;
     if (!owner) {
-      burned_tokens.push(tokenId);
+      burned_tokens.push(String(tokenId));
       TokensMinted += 1;
     } else if (snapshot[owner]) snapshot[owner].tokens.push(String(tokenId));
     else {
