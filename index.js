@@ -81,7 +81,7 @@ async function main() {
       snapshot.burned_tokens = burned_tokens;
       let timestamp = new Date().getTime();
       let snapshot_filename = SNAPSHOT_FOLDER + "snapshot-" + timestamp + JSON_EXT;
-      let holders_filename = SNAPSHOT_FOLDER + "holders-only-" + timestamp;
+      let holders_filename = SNAPSHOT_FOLDER + "holders-only-" + timestamp + JSON_EXT;
       writeFile(
         snapshot_filename, 
         JSON.stringify(snapshot), 
