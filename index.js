@@ -60,12 +60,14 @@ async function main() {
   let snapshot = {};
   let holders = 0;
   let holders_only = [];
+  let burned_tokens = [];
   for (let i = 0; i < TOKENS_MINTED; i++) {
     let tokenId = i+1;
     console.log('token_id', tokenId);
     let tokenInfo = await loadToken(client, tokenId);
-    let owner = tokenInfo.access.owner;
-    if (snapshot[owner]) snapshot[owner].tokens.push(String(tokenId));
+    let owner = (tokenInfo.hasOwnProperty('access')) ? tokenInfo.access.owner : null;
+    if (!owner) burned_tokens.push(tokenId);
+    else if (snapshot[owner]) snapshot[owner].tokens.push(String(tokenId));
     else {
       holders += 1;
       snapshot[owner] = { tokens: [String(tokenId)]};
@@ -74,6 +76,7 @@ async function main() {
     if (i == TOKENS_MINTED-1) {
       console.log('holders', holders);
       snapshot.holders = holders;
+      snapshot.burned_tokens = burned_tokens;
       let timestamp = new Date().getTime();
       let snapshot_filename = SNAPSHOT_FOLDER + "snapshot-" + timestamp + JSON_EXT;
       let holders_filename = SNAPSHOT_FOLDER + "holders-only-" + timestamp;
