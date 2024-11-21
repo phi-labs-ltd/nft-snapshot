@@ -79,6 +79,11 @@ async function main() {
       console.log('holders', holders);
       snapshot.holders = holders;
       snapshot.burned_tokens = burned_tokens;
+      snapshot.supply = {
+        minted: TokensMinted,
+        burned: burned_tokens.length,
+        circulating_supply: (TokensMinted - burned_tokens.length)
+      };
       let timestamp = new Date().getTime();
       let snapshot_filename = SNAPSHOT_FOLDER + "snapshot-" + timestamp + JSON_EXT;
       let holders_filename = SNAPSHOT_FOLDER + "holders-only-" + timestamp + JSON_EXT;
