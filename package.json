@@ -1,0 +1,17 @@
+{
+  "name": "snapshots",
+  "version": "1.0.0",
+  "description": "Snapshot utility for Ambur collections",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "drew.taylor@philabs.xyz",
+  "license": "MIT",
+  "dependencies": {
+    "@archwayhq/arch3.js": "^0.7.3",
+    "dotenv": "^16.4.5"
+  },
+  "type": "module"
+}
