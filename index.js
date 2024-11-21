@@ -53,21 +53,23 @@ async function loadToken(client = null, tokenId = null) {
 async function main() {
   let client = await getClient();
 
-  const TOKENS_MINTED = await numTokens();
-  console.log("Computing: " + TOKENS_MINTED + " tokens, from collection: " + process.env.COLLECTION_NAME);
+  let TokensMinted = await numTokens();
+  console.log("Computing: " + TokensMinted + " tokens, from collection: " + process.env.COLLECTION_NAME);
 
   // Get snapshot
   let snapshot = {};
   let holders = 0;
   let holders_only = [];
   let burned_tokens = [];
-  for (let i = 0; i < TOKENS_MINTED; i++) {
+  for (let i = 0; i < TokensMinted; i++) {
     let tokenId = i+1;
     console.log('token_id', tokenId);
     let tokenInfo = await loadToken(client, tokenId);
     let owner = (tokenInfo.hasOwnProperty('access')) ? tokenInfo.access.owner : null;
-    if (!owner) burned_tokens.push(tokenId);
-    else if (snapshot[owner]) snapshot[owner].tokens.push(String(tokenId));
+    if (!owner) {
+      burned_tokens.push(tokenId);
+      TokensMinted += 1;
+    } else if (snapshot[owner]) snapshot[owner].tokens.push(String(tokenId));
     else {
       holders += 1;
       snapshot[owner] = { tokens: [String(tokenId)]};
